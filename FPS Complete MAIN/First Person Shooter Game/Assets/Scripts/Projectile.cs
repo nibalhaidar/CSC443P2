@@ -34,9 +34,14 @@ public class Projectile : MonoBehaviour, IPoolable
     {
         if (!alive) return;
 
-        var health = other.GetComponentInParent<EnemyHealth>();
+        var health = other.GetComponentInParent<Enemy>();
         if (health != null)
             health.TakeDamage(damage);
+
+        var turret = other.GetComponentInParent<Turret>();
+if (turret != null)
+    turret.TakeDamage(damage);
+
 
         Return();
     }

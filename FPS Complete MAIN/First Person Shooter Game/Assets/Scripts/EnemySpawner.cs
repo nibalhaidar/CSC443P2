@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Pool Settings")]
-    [SerializeField] private EnemyHealth enemyPrefab;
+    [SerializeField] private Enemy enemyPrefab;        // ✅ Was EnemyHealth — now Enemy
     [SerializeField] private int prewarmCount = 5;
 
     [Header("Spawn Settings")]
@@ -12,11 +12,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 3f;
     [SerializeField] private int maxActiveEnemies = 10;
 
-    private ObjectPool<EnemyHealth> pool;
+    private ObjectPool<Enemy> pool;                    // ✅ Was ObjectPool<EnemyHealth>
 
     private void Start()
     {
-        pool = new ObjectPool<EnemyHealth>(enemyPrefab, transform, prewarmCount);
+        pool = new ObjectPool<Enemy>(enemyPrefab, transform, prewarmCount);
         StartCoroutine(SpawnLoop());
     }
 
@@ -34,11 +34,11 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        EnemyHealth enemy = pool.Get(point.position, point.rotation);
+        Enemy enemy = pool.Get(point.position, point.rotation);  // ✅ Was EnemyHealth
         enemy.OnDied += HandleEnemyDied;
     }
 
-    private void HandleEnemyDied(EnemyHealth enemy)
+    private void HandleEnemyDied(Enemy enemy)                    // ✅ Was EnemyHealth
     {
         enemy.OnDied -= HandleEnemyDied;
         pool.Return(enemy);

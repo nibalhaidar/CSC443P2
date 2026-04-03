@@ -60,8 +60,12 @@ public class ActiveWeapon : MonoBehaviour
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
             out hit, weaponData.range))
         {
-            EnemyHealth health = hit.collider.GetComponent<EnemyHealth>();
-            health?.TakeDamage(weaponData.damage);
+             Enemy enemy = hit.collider.GetComponent<Enemy>();
+            enemy?.TakeDamage(weaponData.damage);
+
+            // ✅ Add this line right after
+Turret turret = hit.collider.GetComponent<Turret>();
+turret?.TakeDamage(weaponData.damage);
             Instantiate(weaponData.hitVFXPrefab, hit.point, Quaternion.identity);
         }
     }

@@ -3,30 +3,24 @@ using StarterAssets;
 
 public class Turret : MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] private TurretData data;
+
     [Header("References")]
     [SerializeField] private Transform head;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Projectile projectilePrefab;
 
-    [Header("Detection")]
-    [SerializeField] private float detectionRange = 20f;
-    [SerializeField] private float rotationSpeed = 5f;
-
-    [Header("Combat")]
-    [SerializeField] private float fireRate = 2f;
-    [SerializeField] private int damage = 1;
-
-    [Header("Pool")]
-    [SerializeField] private int poolSize = 10;
-
     private ObjectPool<Projectile> projectilePool;
     private Transform player;
     private float nextFireTime;
+    private float currentHealth;
 
     private void Start()
     {
         player = FindAnyObjectByType<FirstPersonController>().transform;
-        projectilePool = new ObjectPool<Projectile>(projectilePrefab, transform, poolSize);
+        projectilePool = new ObjectPool<Projectile>(projectilePrefab, transform, data.poolSize);
+        currentHealth = data.health;
     }
 
     private void Update()
@@ -34,7 +28,7 @@ public class Turret : MonoBehaviour
         if (player == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distanceToPlayer > detectionRange) return;
+        if (distanceToPlayer > data.detectionRange) return;
 
         TrackPlayer();
 
@@ -46,15 +40,29 @@ public class Turret : MonoBehaviour
     {
         Vector3 direction = (player.position - head.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        head.rotation = Quaternion.Slerp(head.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        head.rotation = Quaternion.Slerp(head.rotation, targetRotation, data.rotationSpeed * Time.deltaTime);
     }
 
     private void Fire()
     {
-        nextFireTime = Time.time + (1f / fireRate);
-
+        nextFireTime = Time.time + (1f / data.fireRate);
         Projectile projectile = projectilePool.Get(firePoint.position, firePoint.rotation);
-        projectile.Fire(damage, ReturnProjectile);
+        projectile.Fire(data.damage, ReturnProjectile);
+    }
+
+    // ✅ Takes damage just like Enemy
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        Debug.Log("Turret Health: " + currentHealth);
+
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false); // or play death VFX, then disable
     }
 
     private void ReturnProjectile(Projectile projectile)
@@ -65,6 +73,6 @@ public class Turret : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        Gizmos.DrawWireSphere(transform.position, data.detectionRange);
     }
 }
