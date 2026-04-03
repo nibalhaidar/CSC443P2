@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f774b0f20ed574ba1c8e43ebaba47e, type: 3}
   m_Name: Ant
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: 8844795180429347225, guid: 57b71948363a37a47ad70cc6fcecf634, type: 3}
   health: 1
   speed: 5
   stoppingDistance: 1.5
+  count: 2
+  spawnInterval: 1
+  totalToSpawn: 0
   animatorController: {fileID: 0}
