@@ -21,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     public float flashDuration = 0.1f;
 
     private bool isDead = false;
+    
 
     void Start()
     {
@@ -34,6 +35,9 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (isDead) return;
+            // Apply damage reduction from upgrades
+    if (PlayerUpgrades.Instance != null)
+        amount *= (1f - PlayerUpgrades.Instance.DamageReductionPercent);
 
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);

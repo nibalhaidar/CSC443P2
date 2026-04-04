@@ -19,16 +19,17 @@ public class Weapon : MonoBehaviour
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public void Shoot() {
+   public void Shoot()
+{
+    if (!HasAmmo) return;
 
-        if (!HasAmmo) return;
-
+    // Only consume ammo if infinite ammo upgrade is not active
+    if (PlayerUpgrades.Instance == null || !PlayerUpgrades.Instance.HasInfiniteAmmo)
         currentAmmo--;
-        muzzleFlash.Play();
-        impulseSource.GenerateImpulse();
-        Debug.Log(impulseSource);
 
-    }
+    muzzleFlash.Play();
+    impulseSource.GenerateImpulse();
+}
 
     public void RefillAmmo()
     {

@@ -49,7 +49,9 @@ public class ActiveWeapon : MonoBehaviour
             inputs.ShootInput(false);
         }
 
-        nextFireTime = Time.time + (1.0f / weaponData.fireRate);
+       // nextFireTime = Time.time + (1.0f / weaponData.fireRate);
+       float adjustedFireRate = weaponData.fireRate * (PlayerUpgrades.Instance != null ? PlayerUpgrades.Instance.FireRateMultiplier : 1f);
+nextFireTime = Time.time + (1.0f / adjustedFireRate);
         animator.Play(SHOOT_ANIMATION_TRIGGER, 0, 0f);
         currentWeapon.Shoot();
         RaycastHit hit;

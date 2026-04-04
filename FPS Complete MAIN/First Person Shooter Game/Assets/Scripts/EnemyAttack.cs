@@ -10,9 +10,11 @@ public class EnemyAttack : MonoBehaviour
     private float lastAttackTime = 0f;
     private PlayerHealth playerHealth;
     private NavMeshAgent agent;
+    private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -22,19 +24,18 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-        if (playerHealth == null || agent == null) return;
+          if (playerHealth == null || agent == null) return;
 
-        // Attack when NavMesh considers the enemy as having reached the player
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            if (Time.time >= lastAttackTime + attackCooldown)
-                Attack();
-        }
+    bool inRange = !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+
+    if (inRange && Time.time >= lastAttackTime + attackCooldown)
+        Attack();
     }
 
     private void Attack()
     {
         lastAttackTime = Time.time;
         playerHealth.TakeDamage(damage);
+        animator.SetTrigger("Attack");
     }
 }

@@ -22,22 +22,59 @@ public class WaveSpawner : MonoBehaviour
     [Header("Setup")]
     [SerializeField] private LevelWave[] levels;
 
+    [Header("Wave Settings")]
+    [SerializeField] private float timeBetweenWaves = 3f;
+
     private int activeEnemies = 0;
+    private int currentWaveIndex = 0;
     public System.Action OnWaveComplete;
+    public System.Action OnAllWavesComplete;
 
     private void Start()
     {
-        int levelIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        LevelWave wave = System.Array.Find(levels, l => l.levelIndex == levelIndex);
-
-        if (wave == null)
-        {
-            Debug.LogWarning("No wave data for level " + levelIndex);
-            return;
-        }
-
-        StartCoroutine(SpawnWave(wave));
+        StartCoroutine(RunWaves());
     }
+
+    private IEnumerator RunWaves()
+{
+    while (currentWaveIndex < levels.Length)
+    {
+        Debug.Log($"Wave {currentWaveIndex + 1} starting...");
+        yield return StartCoroutine(SpawnWave(levels[currentWaveIndex]));
+
+        yield return new WaitUntil(() => activeEnemies <= 0);
+
+        Debug.Log($"Wave {currentWaveIndex + 1} complete!");
+        OnWaveComplete?.Invoke();
+
+        currentWaveIndex++;
+        
+
+        if (currentWaveIndex < levels.Length)
+{
+    if (UpgradeUI.Instance == null)
+    {
+        Debug.LogError("UpgradeUI.Instance is null!");
+        yield break;
+    }
+
+    bool upgradePicked = false;
+    UpgradeUI.Instance.OnUpgradeChosen += () => upgradePicked = true;
+    UpgradeUI.Instance.ShowUpgrades();
+
+    while (!upgradePicked)
+        yield return new WaitForSecondsRealtime(0.1f);
+
+    UpgradeUI.Instance.OnUpgradeChosen = null;
+
+    Debug.Log($"Next wave in {timeBetweenWaves} seconds...");
+    yield return new WaitForSecondsRealtime(timeBetweenWaves);
+}
+    }
+
+    Debug.Log("All waves complete!");
+    OnAllWavesComplete?.Invoke();
+}
 
     private IEnumerator SpawnWave(LevelWave wave)
     {
@@ -66,11 +103,7 @@ public class WaveSpawner : MonoBehaviour
         }
 
         Transform point = entry.spawnPoints[Random.Range(0, entry.spawnPoints.Length)];
-
-        // ✅ Same logic as EnemySpawner — prefab already has data assigned
         Enemy enemy = Instantiate(entry.enemyData.prefab, point.position, point.rotation);
-
-        // ✅ Override data from wave entry in case prefab has different data
         enemy.data = entry.enemyData;
 
         activeEnemies++;
@@ -83,10 +116,5 @@ public class WaveSpawner : MonoBehaviour
         Destroy(enemy.gameObject);
 
         activeEnemies--;
-        if (activeEnemies <= 0)
-        {
-            Debug.Log("Wave Complete!");
-            OnWaveComplete?.Invoke();
-        }
     }
 }

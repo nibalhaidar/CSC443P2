@@ -232,6 +232,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 037415c4d7683de4797457c4512cee18, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1176763228815504395}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 037415c4d7683de4797457c4512cee18, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3635298359827295457}
   m_SourcePrefab: {fileID: 100100000, guid: 037415c4d7683de4797457c4512cee18, type: 3}
 --- !u!1 &8994252759045155125 stripped
 GameObject:
@@ -316,3 +319,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   data: {fileID: 11400000, guid: 1d24a19d0e8659d48bb73ef1e4fe82b6, type: 2}
+--- !u!114 &3635298359827295457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994252759045155125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e435afd89142906499652eb0978d2403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  damage: 5
+  attackCooldown: 1
