@@ -32,26 +32,26 @@ public class PlayerHealth : MonoBehaviour
     /// <summary>
     /// Call this from any enemy script to deal damage to the player.
     /// </summary>
-    public void TakeDamage(float amount)
-    {
-        if (isDead) return;
-            // Apply damage reduction from upgrades
+ public void TakeDamage(float amount)
+{
+    if (isDead) return;
+
     if (PlayerUpgrades.Instance != null)
         amount *= (1f - PlayerUpgrades.Instance.DamageReductionPercent);
 
-        currentHealth -= amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    currentHealth -= amount;
+    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        UpdateHealthUI();
+    UpdateHealthUI();
 
-        if (damageFlashOverlay != null)
-            StartCoroutine(FlashDamage());
+    CameraShake.Instance?.Shake(0.2f, 0.1f); // add this line
 
-        Debug.Log($"Player took {amount} damage. Current HP: {currentHealth}");
+    if (damageFlashOverlay != null)
+        StartCoroutine(FlashDamage());
 
-        if (currentHealth <= 0)
-            Die();
-    }
+    if (currentHealth <= 0)
+        Die();
+}
 
     /// <summary>
     /// Heal the player by a given amount.

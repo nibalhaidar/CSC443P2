@@ -10,6 +10,7 @@ public class EnemyData : ScriptableObject
     public float health = 100f;
     public float speed = 3.5f;
     public float stoppingDistance = 1.5f;
+    public int scoreValue = 10;
       public int count;               // How many to spawn this wave
     public float spawnInterval = 1f; // Delay between spawns of this enemy type
      public int totalToSpawn;    

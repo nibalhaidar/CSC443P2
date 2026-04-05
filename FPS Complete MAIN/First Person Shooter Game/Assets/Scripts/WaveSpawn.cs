@@ -11,6 +11,7 @@ public class WaveSpawner : MonoBehaviour
         public float spawnInterval = 1f;
         public Transform[] spawnPoints;
     }
+    public int CurrentWave => currentWaveIndex + 1;
 
     [System.Serializable]
     public class LevelWave
@@ -44,10 +45,10 @@ public class WaveSpawner : MonoBehaviour
 
         yield return new WaitUntil(() => activeEnemies <= 0);
 
-        Debug.Log($"Wave {currentWaveIndex + 1} complete!");
-        OnWaveComplete?.Invoke();
-
         currentWaveIndex++;
+
+Debug.Log($"Wave {currentWaveIndex + 1} complete!");
+OnWaveComplete?.Invoke();
         
 
         if (currentWaveIndex < levels.Length)
@@ -110,11 +111,20 @@ public class WaveSpawner : MonoBehaviour
         enemy.OnDied += HandleEnemyDied;
     }
 
-    private void HandleEnemyDied(Enemy enemy)
-    {
-        enemy.OnDied -= HandleEnemyDied;
-        Destroy(enemy.gameObject);
+  private void HandleEnemyDied(Enemy enemy)
+{
+    enemy.OnDied -= HandleEnemyDied;
+    Destroy(enemy.gameObject);
 
-        activeEnemies--;
-    }
+    activeEnemies--;
+
+    Debug.Log($"Active enemies remaining: {activeEnemies}, Wave index: {currentWaveIndex}, Total levels: {levels.Length}");
+
+    bool isLastWave = currentWaveIndex >= levels.Length - 1;
+if (activeEnemies <= 0 && !isLastWave)
+{
+    Debug.Log("Triggering slow mo, SlowMo.Instance is: " + SlowMo.Instance);
+    SlowMo.Instance?.TriggerSlowMo();
+}
+}
 }

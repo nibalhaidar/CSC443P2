@@ -15,27 +15,29 @@ public class PlayerUpgrades : MonoBehaviour
     }
 
     public void ApplyUpgrade(UpgradeData upgrade)
+{
+    ResetUpgrades();
+    switch (upgrade.type)
     {
-        ResetUpgrades();
-        switch (upgrade.type)
-        {
-            case UpgradeType.FireRate:
-                FireRateMultiplier *= upgrade.fireRateMultiplier;
-                Debug.Log($"Fire rate multiplier is now {FireRateMultiplier}");
-                break;
+        case UpgradeType.FireRate:
+            FireRateMultiplier = upgrade.fireRateMultiplier;
+            break;
 
-            case UpgradeType.DamageReduction:
-                DamageReductionPercent += upgrade.damageReductionPercent;
-                DamageReductionPercent = Mathf.Clamp(DamageReductionPercent, 0f, 0.90f); // cap at 90%
-                Debug.Log($"Damage reduction is now {DamageReductionPercent * 100}%");
-                break;
+        case UpgradeType.DamageReduction:
+            DamageReductionPercent = Mathf.Clamp(upgrade.damageReductionPercent, 0f, 0.90f);
+            break;
 
-            case UpgradeType.InfiniteAmmo:
-                HasInfiniteAmmo = true;
-                Debug.Log("Infinite ammo activated!");
-                break;
-        }
+        case UpgradeType.InfiniteAmmo:
+            HasInfiniteAmmo = true;
+            break;
+
+        case UpgradeType.HealthRestore:
+            PlayerHealth playerHealth = FindAnyObjectByType<PlayerHealth>();
+            if (playerHealth != null)
+                playerHealth.Heal(upgrade.healthRestoreAmount);
+            break;
     }
+}
     private void ResetUpgrades()
 {
     FireRateMultiplier = 1f;

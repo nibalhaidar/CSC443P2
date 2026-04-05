@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using StarterAssets;
+using System.Collections;
 
 public class Enemy : MonoBehaviour, IPoolable
 {
@@ -13,8 +14,11 @@ public class Enemy : MonoBehaviour, IPoolable
     private Animator animator;
 
     private float currentHealth;
+    private bool isDead = false; // add this
 
     public event Action<Enemy> OnDied;
+    [Header("VFX")]
+[SerializeField] private ParticleSystem deathVFX;
 
     private void Awake()
     {
@@ -55,20 +59,52 @@ public class Enemy : MonoBehaviour, IPoolable
                 animator.SetFloat("Speed", agent.velocity.magnitude);
         }
     }
+public void TakeDamage(float damage)
+{
+    if (isDead) return; // add this check
 
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        Debug.Log(name + " Health: " + currentHealth);
+    currentHealth -= damage;
+    Debug.Log(name + " Health: " + currentHealth);
 
-        if (currentHealth <= 0)
-            Die();
-    }
+    if (currentHealth <= 0)
+        Die();
+}
 
-    private void Die()
-    {
-        OnDied?.Invoke(this);
-    }
+private void Die()
+{
+    if (isDead) return;
+    isDead = true;
+
+    if (data != null)
+        ScoreManager.Instance?.AddScore(data.scoreValue);
+
+    agent.isStopped = true;
+    agent.enabled = false;
+
+    if (animator != null)
+        animator.SetTrigger("Death");
+
+  if (deathVFX != null)
+{
+    deathVFX.transform.SetParent(null);
+    deathVFX.gameObject.SetActive(true);
+    deathVFX.Play();
+    Destroy(deathVFX.gameObject, deathVFX.main.duration + 0.5f);
+
+    // only hide mesh if this enemy has a death VFX
+    foreach (Renderer r in GetComponentsInChildren<Renderer>())
+        r.enabled = false;
+}
+    StartCoroutine(DeathDelay());
+}
+private IEnumerator DeathDelay()
+{
+    // wait for death animation to finish
+    float deathAnimDuration = 2f; // match this to your animation length
+    yield return new WaitForSeconds(deathAnimDuration);
+
+    OnDied?.Invoke(this);
+}
 
     // ✅ Empty — not using pool for enemies anymore
     public void OnGetFromPool() { }

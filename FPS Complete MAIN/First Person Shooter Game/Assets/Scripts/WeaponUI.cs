@@ -9,16 +9,20 @@ public class WeaponUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI weaponNameText;
 
     void Update()
-    {
-        Weapon weapon = activeWeapon.CurrentWeapon;
+{
+    Weapon weapon = activeWeapon.CurrentWeapon;
 
-        if (weapon == null) {
-            ammoText.text = "";
-            weaponNameText.text = "";
-            return;
-        }
-
-        weaponNameText.text = weapon.Data.weaponName;
-        ammoText.text = $"{weapon.CurrentAmmo} / {weapon.Data.maxAmmo}";
+    if (weapon == null) {
+        ammoText.text = "";
+        weaponNameText.text = "";
+        return;
     }
+
+    weaponNameText.text = weapon.Data.weaponName;
+
+    if (PlayerUpgrades.Instance != null && PlayerUpgrades.Instance.HasInfiniteAmmo)
+        ammoText.text = "INF";
+    else
+        ammoText.text = $"{weapon.CurrentAmmo} / {weapon.Data.maxAmmo}";
+}
 }
