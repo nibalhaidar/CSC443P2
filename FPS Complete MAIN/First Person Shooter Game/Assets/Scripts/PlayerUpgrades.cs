@@ -16,6 +16,7 @@ public class PlayerUpgrades : MonoBehaviour
 
     public void ApplyUpgrade(UpgradeData upgrade)
     {
+        ResetUpgrades();
         switch (upgrade.type)
         {
             case UpgradeType.FireRate:
@@ -35,4 +36,10 @@ public class PlayerUpgrades : MonoBehaviour
                 break;
         }
     }
+    private void ResetUpgrades()
+{
+    FireRateMultiplier = 1f;
+    DamageReductionPercent = 0f;
+    HasInfiniteAmmo = false;
+}
 }

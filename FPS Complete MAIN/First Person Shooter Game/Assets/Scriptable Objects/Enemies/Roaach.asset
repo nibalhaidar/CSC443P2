@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f774b0f20ed574ba1c8e43ebaba47e, type: 3}
   m_Name: Roaach
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: 9026658468688570102, guid: dfc0fbb46e575a44181e4750ddb5680f, type: 3}
+  prefab: {fileID: 2714198455305173893, guid: 890a988144ef7ec4e9d93bfcb63e7513, type: 3}
   health: 3
   speed: 3.5
   stoppingDistance: 1.5

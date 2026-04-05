@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd209b90a48d2fa4b98ea239d8f0325f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  data: {fileID: 11400000, guid: 325e07e8ede37464cab3bcb96ea28fe2, type: 2}
+  data: {fileID: 11400000, guid: 295b17607c38dc541b36ca4b82def6be, type: 2}
 --- !u!195 &1713353225135699232
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -324,9 +324,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   damage: 10
-  attackRange: 1.5
   attackCooldown: 1
-  player: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8

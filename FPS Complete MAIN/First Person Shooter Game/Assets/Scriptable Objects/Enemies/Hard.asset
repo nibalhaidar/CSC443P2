@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f774b0f20ed574ba1c8e43ebaba47e, type: 3}
   m_Name: Hard
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: 1176763228815504395, guid: 1713eee49bb4aed4bacc07c1f255f5a1, type: 3}
+  prefab: {fileID: 5044104664109795872, guid: 9150f30f56292cb44a7f2835d410f45f, type: 3}
   health: 4
   speed: 3.5
   stoppingDistance: 1.5
