@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   prefab: {fileID: 2714198455305173893, guid: 890a988144ef7ec4e9d93bfcb63e7513, type: 3}
   health: 3
-  speed: 3.5
+  speed: 4
   stoppingDistance: 1.5
+  scoreValue: 10
   count: 0
   spawnInterval: 1
   totalToSpawn: 0

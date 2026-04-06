@@ -36,9 +36,12 @@ public class ActiveWeapon : MonoBehaviour
     {
         bool canFire = Time.time >= nextFireTime;
 
-        if (!canFire || currentWeapon == null ||!currentWeapon.HasAmmo) {
-            return;
-        }
+       bool hasAmmoOrInfinite = currentWeapon.HasAmmo || 
+    (PlayerUpgrades.Instance != null && PlayerUpgrades.Instance.HasInfiniteAmmo);
+
+if (!canFire || currentWeapon == null || !hasAmmoOrInfinite) {
+    return;
+}
         if (weaponData.isAutomatic)
         {
             if (!shootAction.IsPressed()) return;

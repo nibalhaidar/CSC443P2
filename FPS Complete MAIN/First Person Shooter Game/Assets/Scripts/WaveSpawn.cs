@@ -49,6 +49,7 @@ public class WaveSpawner : MonoBehaviour
 
 Debug.Log($"Wave {currentWaveIndex + 1} complete!");
 OnWaveComplete?.Invoke();
+yield return new WaitForSecondsRealtime(2f); // ← add this line here
         
 
         if (currentWaveIndex < levels.Length)

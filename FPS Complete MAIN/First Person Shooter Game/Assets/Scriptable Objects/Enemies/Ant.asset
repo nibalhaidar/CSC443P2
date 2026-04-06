@@ -15,7 +15,8 @@ MonoBehaviour:
   prefab: {fileID: 5578660241624200388, guid: e50c71fbf7f96da42b56192fa016cc44, type: 3}
   health: 1
   speed: 5
-  stoppingDistance: 1.5
+  stoppingDistance: 2
+  scoreValue: 1
   count: 2
   spawnInterval: 1
   totalToSpawn: 0

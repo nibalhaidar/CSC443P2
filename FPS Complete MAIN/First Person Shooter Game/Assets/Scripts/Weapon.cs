@@ -23,9 +23,12 @@ public class Weapon : MonoBehaviour
 {
     if (!HasAmmo) return;
 
-    // Only consume ammo if infinite ammo upgrade is not active
-    if (PlayerUpgrades.Instance == null || !PlayerUpgrades.Instance.HasInfiniteAmmo)
+    bool infinite = PlayerUpgrades.Instance != null && PlayerUpgrades.Instance.HasInfiniteAmmo;
+    
+    if (!infinite)
+    {
         currentAmmo--;
+    }
 
     muzzleFlash.Play();
     impulseSource.GenerateImpulse();
