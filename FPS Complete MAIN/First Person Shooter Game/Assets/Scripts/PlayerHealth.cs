@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("UI (Optional)")]
     public Slider healthBar;          // Drag a UI Slider here in Inspector
-    public Text healthText;           // Or a UI Text element
+    public TextMeshProUGUI healthText;           // Or a UI Text element
 
     [Header("Death Settings")]
     public string deathSceneName = ""; // Scene to load on death (leave empty to just disable)
@@ -77,23 +78,29 @@ public class PlayerHealth : MonoBehaviour
             healthText.text = $"HP: {currentHealth}/{maxHealth}";
     }
 
-    private void Die()
-    {
-        isDead = true;
-        Debug.Log("Player has died.");
-
-        // Disable player controls
-        var controller = GetComponent<CharacterController>();
-        if (controller != null) controller.enabled = false;
-
-        // Optionally disable scripts (e.g. FPS controller)
-        // GetComponent<YourFPSController>()?.enabled = false;
-
-        Invoke(nameof(HandleDeath), deathDelay);
-    }
-
-    private void HandleDeath()
+private void Die()
 {
+    isDead = true;
+    Debug.Log("Player has died.");
+
+    var controller = GetComponent<CharacterController>();
+    if (controller != null) controller.enabled = false;
+
+    GameOverUI.Instance?.Show();
+
+    StartCoroutine(RestartAfterDelay(deathDelay)); // ← replace Invoke with this
+}
+
+private System.Collections.IEnumerator RestartAfterDelay(float delay)
+{
+    yield return new WaitForSecondsRealtime(delay); // ← ignores timeScale
+    Time.timeScale = 1f;
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+}
+
+private void HandleDeath()
+{
+    Time.timeScale = 1f; // unpause before reloading
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }
 
