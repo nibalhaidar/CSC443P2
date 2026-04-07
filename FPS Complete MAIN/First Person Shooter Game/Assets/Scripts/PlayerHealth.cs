@@ -32,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (isDead) return;
+        AudioManager.Instance.PlayHurt();
 
         if (PlayerUpgrades.Instance != null)
             amount *= (1f - PlayerUpgrades.Instance.DamageReductionPercent);

@@ -56,6 +56,7 @@ public TMP_Text[] upgradeDescTexts;    public Image[] upgradeIcons;             
 
     private void SelectUpgrade(UpgradeData upgrade)
     {
+        AudioManager.Instance.PlayUpgradeSelect();
         PlayerUpgrades.Instance.ApplyUpgrade(upgrade);
         upgradePanel.SetActive(false);
         Time.timeScale = 1f; // Resume the game

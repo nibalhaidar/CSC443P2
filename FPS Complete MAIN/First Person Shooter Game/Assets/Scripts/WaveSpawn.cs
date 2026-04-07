@@ -50,6 +50,7 @@ public class WaveSpawner : MonoBehaviour
         currentWaveIndex++;
 
 Debug.Log($"Wave {currentWaveIndex + 1} complete!");
+AudioManager.Instance.PlayWaveComplete();
 OnWaveComplete?.Invoke();
 yield return new WaitForSecondsRealtime(2f); // ← add this line here
         
@@ -76,16 +77,18 @@ yield return new WaitForSecondsRealtime(2f); // ← add this line here
 }
     }
 
-    Debug.Log("All waves complete!");
+  
    Debug.Log("All waves complete!");
+
+OnAllWavesComplete?.Invoke();
 if (winPanel != null)
 {
+    AudioManager.Instance.PlayWin();
     winPanel.SetActive(true);
     Cursor.lockState = CursorLockMode.None;
     Cursor.visible = true;
     Time.timeScale = 0f;
 }
-OnAllWavesComplete?.Invoke();
 }
 
     private IEnumerator SpawnWave(LevelWave wave)

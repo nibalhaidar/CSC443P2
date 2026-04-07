@@ -57,6 +57,7 @@ if (!canFire || currentWeapon == null || !hasAmmoOrInfinite) {
 nextFireTime = Time.time + (1.0f / adjustedFireRate);
         animator.Play(SHOOT_ANIMATION_TRIGGER, 0, 0f);
         currentWeapon.Shoot();
+        AudioManager.Instance.PlayShoot();
         RaycastHit hit;
 
         float yawKick = Random.Range(-weaponData.recoilX, weaponData.recoilX);

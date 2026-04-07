@@ -14,6 +14,7 @@ public class AmmoPickup : Pickup
 
     Weapon weapon = activeWeapon.CurrentWeapon;
     if (weapon.CurrentAmmo >= weapon.Data.maxAmmo) return false;
+    AudioManager.Instance.PlayAmmoPickup();
 
     weapon.RefillAmmo();
     return true;

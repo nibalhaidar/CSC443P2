@@ -17,6 +17,7 @@ public class GameOverUI : MonoBehaviour
 
    public void Show(int score)
 {
+    AudioManager.Instance.PlayLose();
     scoreText.text = $"Score: {score}";
     panel.SetActive(true);
     Time.timeScale = 0f;
