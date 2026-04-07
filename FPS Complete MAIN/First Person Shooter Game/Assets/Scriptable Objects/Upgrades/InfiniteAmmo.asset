@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: InfiniteAmmo
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: InfiniteAmmo
-  description: 
+  description: infintie ammo
   icon: {fileID: 0}
   type: 2
   fireRateMultiplier: 1
   damageReductionPercent: 0
   infiniteAmmo: 1
+  healthRestoreAmount: 0

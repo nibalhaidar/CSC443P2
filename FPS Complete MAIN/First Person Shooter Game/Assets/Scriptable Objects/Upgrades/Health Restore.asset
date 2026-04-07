@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93a2b4721c3c7044ad224695fa8b112, type: 3}
   m_Name: Health Restore
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Restore HeaLTH
-  description: 
+  upgradeName: Restore Health
+  description: restores health
   icon: {fileID: 0}
   type: 3
   fireRateMultiplier: 1

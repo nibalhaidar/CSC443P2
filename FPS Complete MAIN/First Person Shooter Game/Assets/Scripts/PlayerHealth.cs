@@ -86,9 +86,10 @@ private void Die()
     var controller = GetComponent<CharacterController>();
     if (controller != null) controller.enabled = false;
 
-    GameOverUI.Instance?.Show();
+    int score = ScoreManager.Instance != null ? ScoreManager.Instance.CurrentScore : 0;
+    GameOverUI.Instance?.Show(score);
 
-    StartCoroutine(RestartAfterDelay(deathDelay)); // ← replace Invoke with this
+    // removed RestartAfterDelay — buttons handle it now
 }
 
 private System.Collections.IEnumerator RestartAfterDelay(float delay)

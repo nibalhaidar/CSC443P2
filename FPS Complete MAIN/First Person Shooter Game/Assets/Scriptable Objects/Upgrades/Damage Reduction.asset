@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Damage Reduction
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: DamageReduction
-  description: 
+  description: reduces inflicted dmg
   icon: {fileID: 0}
   type: 1
   fireRateMultiplier: 1
   damageReductionPercent: 50
   infiniteAmmo: 0
+  healthRestoreAmount: 0

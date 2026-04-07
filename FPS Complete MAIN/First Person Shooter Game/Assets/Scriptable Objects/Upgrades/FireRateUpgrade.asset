@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: FireRateUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Firerate Increase
-  description: 
+  description: increases firerate
   icon: {fileID: 0}
   type: 0
   fireRateMultiplier: 2
   damageReductionPercent: 0
   infiniteAmmo: 0
+  healthRestoreAmount: 0

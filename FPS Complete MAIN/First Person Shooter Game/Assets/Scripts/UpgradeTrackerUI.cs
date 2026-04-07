@@ -6,10 +6,15 @@ public class UpgradeTrackerUI : MonoBehaviour
     public static UpgradeTrackerUI Instance;
 
     [SerializeField] private TextMeshProUGUI upgradeText;
+    [SerializeField] private GameObject panel;
+    [SerializeField] private float displayDuration = 2f;
+
+    private Coroutine hideCoroutine;
 
     private void Awake()
     {
         Instance = this;
+        panel.SetActive(false);
     }
 
     public void Refresh()
@@ -20,12 +25,23 @@ public class UpgradeTrackerUI : MonoBehaviour
 
         if (upgrades.Count == 0)
         {
-            upgradeText.text = "";
+            panel.SetActive(false);
             return;
         }
 
-        // Only show the most recently picked upgrade
         UpgradeData latest = upgrades[upgrades.Count - 1];
-        upgradeText.text = $"- {latest.upgradeName}";
+        upgradeText.text = $"{latest.upgradeName}";
+        panel.SetActive(true);
+
+        if (hideCoroutine != null)
+            StopCoroutine(hideCoroutine);
+
+        hideCoroutine = StartCoroutine(HideAfterDelay());
+    }
+
+    private System.Collections.IEnumerator HideAfterDelay()
+    {
+        yield return new WaitForSeconds(displayDuration);
+        panel.SetActive(false);
     }
 }
