@@ -634,6 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   data: {fileID: 11400000, guid: 325e07e8ede37464cab3bcb96ea28fe2, type: 2}
+  deathVFX: {fileID: 0}
 --- !u!114 &6263209658635194524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e435afd89142906499652eb0978d2403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  damage: 10
+  damage: 5
   attackCooldown: 1
 --- !u!65 &6615430217226768020
 BoxCollider:

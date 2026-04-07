@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: DamageReduction
   description: reduces inflicted dmg
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c92501cdc0a23ba4c9b9e7bb6ceea212, type: 3}
   type: 1
   fireRateMultiplier: 1
   damageReductionPercent: 50

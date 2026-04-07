@@ -1066,8 +1066,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9c2aed71d0edfd741899b009ca3c756b, type: 2}
-  m_sharedMaterial: {fileID: -3317381829456074754, guid: 9c2aed71d0edfd741899b009ca3c756b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c5fca54e9cd338f498be44f62802f3d0, type: 2}
+  m_sharedMaterial: {fileID: -3317381829456074754, guid: c5fca54e9cd338f498be44f62802f3d0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1203,15 +1203,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Adventure \nTime"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9c2aed71d0edfd741899b009ca3c756b, type: 2}
-  m_sharedMaterial: {fileID: -3317381829456074754, guid: 9c2aed71d0edfd741899b009ca3c756b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c5fca54e9cd338f498be44f62802f3d0, type: 2}
+  m_sharedMaterial: {fileID: -3317381829456074754, guid: c5fca54e9cd338f498be44f62802f3d0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283082616
-  m_fontColor: {r: 0.47058827, g: 0.654902, b: 0.2901961, a: 1}
+    rgba: 4280904002
+  m_fontColor: {r: 0.25882354, g: 0.41176474, b: 0.16078432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1579,8 +1579,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '?'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9c2aed71d0edfd741899b009ca3c756b, type: 2}
-  m_sharedMaterial: {fileID: -3317381829456074754, guid: 9c2aed71d0edfd741899b009ca3c756b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c5fca54e9cd338f498be44f62802f3d0, type: 2}
+  m_sharedMaterial: {fileID: -3317381829456074754, guid: c5fca54e9cd338f498be44f62802f3d0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -4914,6 +4914,10 @@ PrefabInstance:
       propertyPath: m_StoppingDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5503439927877830494, guid: 66cae057838aa9144982d58c90ec1b23, type: 3}
+      propertyPath: damage
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7496381426879330953, guid: 66cae057838aa9144982d58c90ec1b23, type: 3}
       propertyPath: m_Size.x
       value: 7.5494065

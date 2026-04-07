@@ -19,6 +19,8 @@ public class WaveSpawner : MonoBehaviour
         public int levelIndex;
         public EnemySpawnEntry[] enemies;
     }
+    [Header("Win Settings")]
+[SerializeField] private GameObject winPanel;
 
     [Header("Setup")]
     [SerializeField] private LevelWave[] levels;
@@ -75,7 +77,15 @@ yield return new WaitForSecondsRealtime(2f); // ← add this line here
     }
 
     Debug.Log("All waves complete!");
-    OnAllWavesComplete?.Invoke();
+   Debug.Log("All waves complete!");
+if (winPanel != null)
+{
+    winPanel.SetActive(true);
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+    Time.timeScale = 0f;
+}
+OnAllWavesComplete?.Invoke();
 }
 
     private IEnumerator SpawnWave(LevelWave wave)

@@ -10,19 +10,18 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;
 
     [Header("UI (Optional)")]
-    public Slider healthBar;          // Drag a UI Slider here in Inspector
-    public TextMeshProUGUI healthText;           // Or a UI Text element
+    public Slider healthBar;
+    public TextMeshProUGUI healthText;
 
     [Header("Death Settings")]
-    public string deathSceneName = ""; // Scene to load on death (leave empty to just disable)
+    public string deathSceneName = "";
     public float deathDelay = 1.5f;
 
     [Header("Visual Feedback")]
-    public GameObject damageFlashOverlay;  // Optional: a red UI Image that flashes on hit
+    public GameObject damageFlashOverlay;
     public float flashDuration = 0.1f;
 
     private bool isDead = false;
-    
 
     void Start()
     {
@@ -30,33 +29,27 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUI();
     }
 
-    /// <summary>
-    /// Call this from any enemy script to deal damage to the player.
-    /// </summary>
- public void TakeDamage(float amount)
-{
-    if (isDead) return;
+    public void TakeDamage(float amount)
+    {
+        if (isDead) return;
 
-    if (PlayerUpgrades.Instance != null)
-        amount *= (1f - PlayerUpgrades.Instance.DamageReductionPercent);
+        if (PlayerUpgrades.Instance != null)
+            amount *= (1f - PlayerUpgrades.Instance.DamageReductionPercent);
 
-    currentHealth -= amount;
-    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-    UpdateHealthUI();
+        UpdateHealthUI();
 
-    CameraShake.Instance?.Shake(0.2f, 0.1f); // add this line
+        CameraShake.Instance?.Shake(0.2f, 0.1f);
 
-    if (damageFlashOverlay != null)
-        StartCoroutine(FlashDamage());
+        if (damageFlashOverlay != null)
+            StartCoroutine(FlashDamage());
 
-    if (currentHealth <= 0)
-        Die();
-}
+        if (currentHealth <= 0)
+            Die();
+    }
 
-    /// <summary>
-    /// Heal the player by a given amount.
-    /// </summary>
     public void Heal(float amount)
     {
         if (isDead) return;
@@ -78,32 +71,19 @@ public class PlayerHealth : MonoBehaviour
             healthText.text = $"HP: {currentHealth}/{maxHealth}";
     }
 
-private void Die()
-{
-    isDead = true;
-    Debug.Log("Player has died.");
+    private void Die()
+    {
+        isDead = true;
+        Debug.Log("Player has died.");
 
-    var controller = GetComponent<CharacterController>();
-    if (controller != null) controller.enabled = false;
+        Time.timeScale = 0f;
 
-    int score = ScoreManager.Instance != null ? ScoreManager.Instance.CurrentScore : 0;
-    GameOverUI.Instance?.Show(score);
+        var controller = GetComponent<CharacterController>();
+        if (controller != null) controller.enabled = false;
 
-    // removed RestartAfterDelay — buttons handle it now
-}
-
-private System.Collections.IEnumerator RestartAfterDelay(float delay)
-{
-    yield return new WaitForSecondsRealtime(delay); // ← ignores timeScale
-    Time.timeScale = 1f;
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-}
-
-private void HandleDeath()
-{
-    Time.timeScale = 1f; // unpause before reloading
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-}
+        int score = ScoreManager.Instance != null ? ScoreManager.Instance.CurrentScore : 0;
+        GameOverUI.Instance?.Show(score);
+    }
 
     private System.Collections.IEnumerator FlashDamage()
     {
