@@ -33,7 +33,7 @@ Adventure Time is a fast-paced first-person shooter focused on survival, wave-ba
 ---
 
 
-## 🎨 Asset Credits
+## Asset Credits
 
 All assets used in this project are sourced from Sketchfab:
 
@@ -43,6 +43,6 @@ All assets used in this project are sourced from Sketchfab:
 
 ---
 
-## 💡 What I’m Most Proud Of
+## What I’m Most Proud Of
 
 I’m most proud of the game’s mechanics and pacing, which create a smooth and engaging gameplay loop. The polishing effects—such as camera shake, red screen flash on damage, kill streak multipliers, and slow motion after wave completion—bring the experience to life. Additionally, the fully modular system using ScriptableObjects for enemies, weapons, and wave configurations makes the game highly scalable and flexible.
