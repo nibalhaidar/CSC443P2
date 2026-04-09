@@ -29,6 +29,7 @@ public class GameOverUI : MonoBehaviour
     Time.timeScale = 1f;
     Cursor.lockState = CursorLockMode.Locked;
     Cursor.visible = false;
+    AudioManager.Instance.ResumeBGMusic();
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }
 
@@ -37,6 +38,7 @@ public class GameOverUI : MonoBehaviour
     Time.timeScale = 1f;
     Cursor.lockState = CursorLockMode.None;
     Cursor.visible = true;
+    AudioManager.Instance.ResumeBGMusic();
     SceneManager.LoadScene(0);
 }
 }

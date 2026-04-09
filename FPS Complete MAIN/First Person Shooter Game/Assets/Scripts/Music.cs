@@ -20,8 +20,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip waveCompleteClip;
     [SerializeField] private AudioClip winClip;
     [SerializeField] private AudioClip loseClip;
-    [SerializeField] private AudioClip hurtClip; // ✅ ADD THIS
-    [SerializeField] private AudioClip buttonClickClip; // ✅ ADD THIS
+    [SerializeField] private AudioClip hurtClip;
+    [SerializeField] private AudioClip buttonClickClip;
 
     [Header("SFX Settings")]
     [SerializeField] private float sfxVolume = 1f;
@@ -100,6 +100,7 @@ public class AudioManager : MonoBehaviour
 
     public void ResumeBGMusic()
     {
+        StopAllSFX();
         playingStateMusic = false;
         if (tracks.Length > 0)
             PlayTrack(currentTrackIndex);
@@ -167,14 +168,32 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
+    public void StopAllSFX()
+    {
+        foreach (var source in sfxPool)
+            source.Stop();
+    }
+
     public void PlayShoot()         => PlaySFX(shootClip);
     public void PlayAmmoPickup()    => PlaySFX(ammoPickupClip);
     public void PlayUpgradeSelect() => PlaySFX(upgradeSelectClip);
     public void PlayWaveComplete()  => PlaySFX(waveCompleteClip);
-    public void PlayWin()           => PlaySFX(winClip);
-    public void PlayLose()          => PlaySFX(loseClip);
-    public void PlayHurt() => PlaySFX(hurtClip);
-    public void PlayButtonClick() => PlaySFX(buttonClickClip);
+    public void PlayHurt()          => PlaySFX(hurtClip);
+    public void PlayButtonClick()   => PlaySFX(buttonClickClip);
+
+    public void PlayWin()
+    {
+        StopMusic();
+        playingStateMusic = true;
+        PlaySFX(winClip);
+    }
+
+    public void PlayLose()
+    {
+        StopMusic();
+        playingStateMusic = true;
+        PlaySFX(loseClip);
+    }
 
     public void SetSFXVolume(float value)
     {
