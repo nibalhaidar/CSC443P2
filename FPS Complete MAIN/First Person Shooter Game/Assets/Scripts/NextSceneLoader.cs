@@ -7,10 +7,12 @@ public class NextSceneLoader : MonoBehaviour
     public float rotationDuration = 1f;
     public Animator animator;
 
-    public void LoadNextScene()
-    {
-        StartCoroutine(RotateThenLoad());
-    }
+   public void LoadNextScene()
+{
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+    StartCoroutine(RotateThenLoad());
+}
 
     private IEnumerator RotateThenLoad()
     {
